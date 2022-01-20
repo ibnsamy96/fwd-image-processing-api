@@ -3,9 +3,7 @@ import express, { Application, Request, Response } from 'express'
 import * as dotenv from 'dotenv'
 
 import { ImageQueryParams } from './types/image-query-params.interface'
-
 import { isThisFileExist } from './check-file-existence'
-
 import { errors } from './handle-errors'
 import { resizeImage } from './resize-image'
 
@@ -25,20 +23,34 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.get('/resize-image', async (req: Request, res: Response) => {
+  const imagesDirectories = {
+    resized: './src/resized-images',
+    main: './src/images'
+  }
+
   const { imageName, width, height } = req.query as unknown as ImageQueryParams
 
-  const isImageExist = await isThisFileExist(imageName + '.jpg', './src/images')
-  if (!isImageExist) res.json(errors[404])
+  const isImageExist = await isThisFileExist(imageName + '.jpg', imagesDirectories.main)
+  if (!isImageExist) {
+    res.json(errors[404])
+    return
+  }
 
+  // TODO: you should extract file name, width and height before searching for it in the resized dir
   const isImageResized = await isThisFileExist(
     `${imageName}-${width}-${height}.jpg`,
-    './src/resized-images'
+    imagesDirectories.resized
   )
-  if (!isImageResized)
-    resizeImage(imageName + '.jpg', {
-      width: width as unknown as number,
-      height: height as unknown as number
-    })
+
+  if (!isImageResized) {
+    resizeImage(
+      imageName + '.jpg',
+      parseInt(width),
+      parseInt(height),
+      imagesDirectories.main,
+      imagesDirectories.resized
+    )
+  }
 
   console.log({ imageName, isImageExist })
 
