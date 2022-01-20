@@ -6,6 +6,9 @@ import { ImageQueryParams } from './types/image-query-params.interface'
 
 import { isThisFileExist } from './check-file-existence'
 
+import { errors } from './handle-errors'
+import { resizeImage } from './resize-image'
+
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
@@ -25,10 +28,21 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   const { imageName, width, height } = req.query as unknown as ImageQueryParams
 
   const isImageExist = await isThisFileExist(imageName + '.jpg', './src/images')
+  if (!isImageExist) res.json(errors[404])
+
+  const isImageResized = await isThisFileExist(
+    `${imageName}-${width}-${height}.jpg`,
+    './src/resized-images'
+  )
+  if (!isImageResized)
+    resizeImage(imageName + '.jpg', {
+      width: width as unknown as number,
+      height: height as unknown as number
+    })
 
   console.log({ imageName, isImageExist })
 
-  res.json({ imageName, width, height })
+  res.json({ 'image-state': 'resized' })
 })
 
 // start express server
