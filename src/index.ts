@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv'
 
 import { ImageQueryParams } from './types/image-query-params.interface'
 
+import { isThisFileExist } from './check-file-existence'
+
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
@@ -21,6 +23,10 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/resize-image', async (req: Request, res: Response) => {
   const { imageName, width, height } = req.query as unknown as ImageQueryParams
+
+  const isImageExist = await isThisFileExist(imageName + '.jpg', './src/images')
+
+  console.log({ imageName, isImageExist })
 
   res.json({ imageName, width, height })
 })
