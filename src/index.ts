@@ -36,13 +36,10 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   if (!imageName) {
     // if image name aren't defined, tell the user
     const responseStatus: ResponseStatus = getResponseStatus('BAD_REQUEST')
-    res
-      .status(responseStatus.code)
-      .send({
-        error: responseStatus.message,
-        'received-imageName': width,
-        'received-height': height
-      })
+    res.status(responseStatus.code).send({
+      error: responseStatus.message,
+      'received-imageName': imageName
+    })
     return
   }
 
