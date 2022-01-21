@@ -5,7 +5,8 @@ import { ResponseStatus } from './types/response.interface'
 const errors: unknown = {
   NOT_FOUND: 'There is no image in the images folder with the name your specified.',
   OK: 'Request processing finished successfully.',
-  BAD_REQUEST: 'Make sure to define the needed width & height and for them to be numbers.',
+  BAD_REQUEST:
+    "Make sure to define the needed width & height and for them to be numbers without 'px' or other alphabets.",
   INTERNAL_SERVER_ERROR:
     'An error happened while processing the image and it was logged, try again later.'
 }
