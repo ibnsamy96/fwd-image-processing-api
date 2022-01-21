@@ -3,7 +3,7 @@ import express, { Application, Request, Response } from 'express'
 import * as dotenv from 'dotenv'
 
 import { ImageQueryParams } from './types/image-query-params.interface'
-import { isThisFileExist, isThisFolderExist } from './handle-fs'
+import { isThisFileExist } from './handle-fs'
 import { getResponseStatus } from './handle-response'
 import { resizeImage } from './resize-image'
 import { ResponseStatus } from './types/response.interface'
@@ -60,7 +60,6 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     return
   }
 
-  // TODO: you should extract file name, width and height before searching for it in the resized dir
   const isImageResized = await isThisFileExist(
     `${imageName}-${width}-${height}.jpg`,
     imagesDirectories.resized

@@ -1,4 +1,5 @@
 import sharp, { Sharp } from 'sharp'
+import { createFolderIfNotExist } from './handle-fs'
 
 export const resizeImage = async (
   imagePath: string,
@@ -14,6 +15,8 @@ export const resizeImage = async (
   try {
     const imageSharpObject = sharp(`${sourceDir}/${imagePath}`)
     const resizedImageSharpObject = imageSharpObject.resize({ width, height })
+
+    createFolderIfNotExist('resized-images')
 
     const outputInfo = await resizedImageSharpObject.toFile(
       `${destinationDir}/${imageFileName}-${width}-${height}.${imageFileExtension}`

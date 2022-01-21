@@ -7,16 +7,16 @@ export const isThisFileExist = async (file: string, dirPath: string): Promise<bo
   return isExist
 }
 
-export const isThisFolderExist = async (dirPath: string): Promise<boolean> => {
-  const absoluteDirPath = path.resolve(__dirname, dirPath)
-  console.log(absoluteDirPath)
-
+const isThisFolderExist = async (absoluteDirPath: string): Promise<boolean> => {
   const isExist = fs.existsSync(absoluteDirPath)
   return isExist
 }
 
-export const createFolder = async (dirPath: string): Promise<void> => {
+export const createFolderIfNotExist = async (dirPath: string): Promise<void> => {
   const absoluteDirPath = path.resolve(__dirname, dirPath)
+  console.log(absoluteDirPath)
+
+  if (await isThisFolderExist(absoluteDirPath)) return
 
   fs.mkdir(absoluteDirPath, (e) => {
     if (e) {
