@@ -33,6 +33,19 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   const { imageName } = req.query as unknown as ImageQueryParams
   let { width, height } = req.query as unknown as ImageQueryParams
 
+  if (!imageName) {
+    // if image name aren't defined, tell the user
+    const responseStatus: ResponseStatus = getResponseStatus('BAD_REQUEST')
+    res
+      .status(responseStatus.code)
+      .send({
+        error: responseStatus.message,
+        'received-imageName': width,
+        'received-height': height
+      })
+    return
+  }
+
   const isImageExist = await isThisFileExist(imageName + '.jpg', imagesDirectories.main)
   if (!isImageExist) {
     // if there is no image, tell the user
