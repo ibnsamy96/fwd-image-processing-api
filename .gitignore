@@ -1,6 +1,8 @@
+# Folders
 node_modules/
+build/
 
-.env
-package-lock.json
-
+# Files
 **/resized-images/*.jpg
+package-lock.json
+.env
