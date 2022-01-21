@@ -53,7 +53,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   )
 
   if (!isImageResized) {
-    resizeImage(
+    await resizeImage(
       imageName + '.jpg',
       parseInt(width),
       parseInt(height),
@@ -64,6 +64,9 @@ app.get('/resize-image', async (req: Request, res: Response) => {
 
   const responseStatus: ResponseStatus = getResponseStatus('OK')
   // res.status(responseStatus.code).send({ succeeded: responseStatus.message })
+  res
+    .status(responseStatus.code)
+    .sendFile(__dirname + '/resized-images/' + imageName + '-' + width + '-' + height + '.jpg')
 })
 
 // start express server
