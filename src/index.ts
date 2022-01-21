@@ -3,10 +3,11 @@ import express, { Application, Request, Response } from 'express'
 import * as dotenv from 'dotenv'
 
 import { ImageQueryParams } from './types/image-query-params.interface'
-import { isThisFileExist } from './check-file-existence'
+import { isThisFileExist, isThisFolderExist } from './handle-fs'
 import { getResponseStatus } from './handle-response'
 import { resizeImage } from './resize-image'
 import { ResponseStatus } from './types/response.interface'
+// import {  } from './handle-fs'
 
 dotenv.config()
 

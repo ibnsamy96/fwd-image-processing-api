@@ -1,5 +1,5 @@
 // import supertest from 'supertest'
-import { isThisFileExist } from '../check-file-existence'
+import { isThisFileExist } from '../handle-fs'
 
 describe('Test file existence.', () => {
   const currentDirectory = './'
