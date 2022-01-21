@@ -1,10 +1,7 @@
 // import supertest from 'supertest'
 import { isThisFileExist } from '../check-file-existence'
 
-// create a request object
-// const request = supertest(app)
-
-describe('Test file to be exist.', () => {
+describe('Test file existence.', () => {
   const currentDirectory = './'
   const files = {
     exist: '.env',

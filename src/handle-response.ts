@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 
 import { ResponseStatus } from './types/response.interface'
 
-export const errors: unknown = {
+const errors: unknown = {
   NOT_FOUND: 'There is no image in the images folder with the name your specified.',
   OK: 'Request processing finished successfully.',
   BAD_REQUEST: 'Make sure to define the needed width & height and for them to be numbers.',
