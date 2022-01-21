@@ -5,7 +5,7 @@ import { ResponseStatus } from './types/response.interface'
 export const errors: unknown = {
   404: 'There is no image in the images folder with the name your specified.',
   200: 'Request processing finished successfully.',
-  400: 'Make sure to define the needed width & height.'
+  400: 'Make sure to define the needed width & height and for them to be numbers.'
 }
 
 type StatusConstantsType = keyof typeof StatusCodes
