@@ -5,13 +5,13 @@ import app from '../index'
 const request = supertest(app)
 
 describe("Test endpoint '/'", () => {
-  it('test hello world endpoint', async () => {
+  it('test response', async () => {
     const response = await request.get('/')
     expect(response.status).toBe(200)
   })
 })
 
-describe("Test endpoint response '/resize-image'", () => {
+describe("Test endpoint '/resize-image'", () => {
   const endpoint = '/resize-image'
 
   it('test ok', async () => {
