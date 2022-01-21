@@ -4,8 +4,9 @@ import * as dotenv from 'dotenv'
 
 import { ImageQueryParams } from './types/image-query-params.interface'
 import { isThisFileExist } from './check-file-existence'
-import { errors } from './handle-errors'
+import { getResponseStatus } from './handle-response'
 import { resizeImage } from './resize-image'
+import { ResponseStatus } from './types/response.interface'
 
 dotenv.config()
 
@@ -30,9 +31,18 @@ app.get('/resize-image', async (req: Request, res: Response) => {
 
   const { imageName, width, height } = req.query as unknown as ImageQueryParams
 
+  if (!width || !height) {
+    // if width or height aren't defined, tell the user
+    const responseStatus: ResponseStatus = getResponseStatus('BAD_REQUEST')
+    res.status(responseStatus.code).send({ error: responseStatus.message })
+    return
+  }
+
   const isImageExist = await isThisFileExist(imageName + '.jpg', imagesDirectories.main)
   if (!isImageExist) {
-    res.json(errors[404])
+    // if there is no image, tell the user
+    const responseStatus: ResponseStatus = getResponseStatus('NOT_FOUND')
+    res.status(responseStatus.code).send({ error: responseStatus.message })
     return
   }
 
@@ -52,9 +62,8 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     )
   }
 
-  console.log({ imageName, isImageExist })
-
-  res.json({ 'image-state': 'resized' })
+  const responseStatus: ResponseStatus = getResponseStatus('OK')
+  // res.status(responseStatus.code).send({ succeeded: responseStatus.message })
 })
 
 // start express server
