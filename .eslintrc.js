@@ -23,7 +23,8 @@ module.exports = {
     'no-console': 'off',
     'prettier/prettier': 2,
     'no-use-before-define': ['error', { functions: true, classes: true }],
-    'no-var': 'error',
+    'no-var': 'off',
+    'no-unused-vars': 'off',
     'prefer-const': 'error',
     'import/extensions': [
       'error',

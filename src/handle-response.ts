@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 
-import { ResponseStatus } from './types/response.interface'
+import ResponseStatus from './types/response.interface'
 
 const responses: unknown = {
   NOT_FOUND:
@@ -16,9 +16,11 @@ type StatusConstantsType = keyof typeof StatusCodes
 type StatusConstantsTypeFields = { [key in StatusConstantsType]: number }
 interface StatusConstantsTypeExtended extends StatusConstantsTypeFields {}
 
-export const getResponseStatus = (constant: StatusConstantsType): ResponseStatus => {
+const getResponseStatus = (constant: StatusConstantsType): ResponseStatus => {
   const statusCode: number = (StatusCodes as StatusConstantsTypeExtended)[constant]
   const statusMessage: string = (responses as keyof typeof responses)[constant]
 
   return { code: statusCode, message: statusMessage }
 }
+
+export default getResponseStatus

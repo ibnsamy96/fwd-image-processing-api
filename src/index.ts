@@ -4,9 +4,9 @@ import * as dotenv from 'dotenv'
 
 import { ImageQueryParams } from './types/image-query-params.interface'
 import { isThisFileExist } from './handle-fs'
-import { getResponseStatus } from './handle-response'
-import { resizeImage } from './resize-image'
-import { ResponseStatus } from './types/response.interface'
+import getResponseStatus from './handle-response'
+import resizeImage from './resize-image'
+import ResponseStatus from './types/response.interface'
 // import {  } from './handle-fs'
 
 dotenv.config()
@@ -31,7 +31,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   }
 
   const { imageName } = req.query as unknown as ImageQueryParams
-  let { width, height } = req.query as unknown as ImageQueryParams
+  const { width, height } = req.query as unknown as ImageQueryParams
 
   if (!imageName) {
     // if image name aren't defined, tell the user
@@ -43,7 +43,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     return
   }
 
-  const isImageExist = await isThisFileExist(imageName + '.jpg', imagesDirectories.main)
+  const isImageExist = await isThisFileExist(`${imageName}.jpg`, imagesDirectories.main)
   if (!isImageExist) {
     // if there is no image, tell the user
     const responseStatus: ResponseStatus = getResponseStatus('NOT_FOUND')
@@ -51,7 +51,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     return
   }
 
-  if (!width || !height || isNaN(Number(width)) || isNaN(Number(height))) {
+  if (!width || !height || Number.isNaN(Number(width)) || Number.isNaN(Number(height))) {
     // if width or height aren't defined, tell the user
     const responseStatus: ResponseStatus = getResponseStatus('BAD_REQUEST')
     res
@@ -67,9 +67,9 @@ app.get('/resize-image', async (req: Request, res: Response) => {
 
   if (!isImageResized) {
     const isResizingCompleted = await resizeImage(
-      imageName + '.jpg',
-      parseInt(width),
-      parseInt(height),
+      `${imageName}.jpg`,
+      parseInt(width, 10),
+      parseInt(height, 10),
       imagesDirectories.main,
       imagesDirectories.resized
     )
@@ -84,7 +84,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   const responseStatus: ResponseStatus = getResponseStatus('OK')
   res
     .status(responseStatus.code)
-    .sendFile(__dirname + '/resized-images/' + imageName + '-' + width + '-' + height + '.jpg')
+    .sendFile(`${__dirname}/resized-images/${imageName}-${width}-${height}.jpg`)
 })
 
 // start express server

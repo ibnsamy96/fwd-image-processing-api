@@ -1,7 +1,7 @@
-import sharp, { Sharp } from 'sharp'
+import sharp from 'sharp'
 import { createFolderIfNotExist } from './handle-fs'
 
-export const resizeImage = async (
+const resizeImage = async (
   imagePath: string,
   width: number,
   height: number,
@@ -31,3 +31,5 @@ export const resizeImage = async (
 
   return isResizingCompleted
 }
+
+export default resizeImage
