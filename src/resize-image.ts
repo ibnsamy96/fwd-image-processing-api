@@ -12,7 +12,7 @@ export const resizeImage = async (
   console.log(imagePath)
 
   try {
-    const imageSharpObject = sharp(`${sourceDir}ss/${imagePath}`)
+    const imageSharpObject = sharp(`${sourceDir}/${imagePath}`)
     const resizedImageSharpObject = imageSharpObject.resize({ width, height })
 
     const outputInfo = await resizedImageSharpObject.toFile(
