@@ -56,13 +56,19 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   )
 
   if (!isImageResized) {
-    await resizeImage(
+    const isResizingCompleted = await resizeImage(
       imageName + '.jpg',
       parseInt(width),
       parseInt(height),
       imagesDirectories.main,
       imagesDirectories.resized
     )
+
+    if (!isResizingCompleted) {
+      const responseStatus: ResponseStatus = getResponseStatus('INTERNAL_SERVER_ERROR')
+      res.status(responseStatus.code).send({ error: responseStatus.message })
+      return
+    }
   }
 
   const responseStatus: ResponseStatus = getResponseStatus('OK')

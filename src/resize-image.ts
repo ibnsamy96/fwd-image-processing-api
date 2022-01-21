@@ -6,16 +6,26 @@ export const resizeImage = async (
   height: number,
   sourceDir: string,
   destinationDir: string
-): Promise<void> => {
-  console.log(imagePath)
-
+): Promise<{ isResizingCompleted: boolean }> => {
+  let isResizingCompleted = false
   const [imageFileName, imageFileExtension] = imagePath.split('.')
 
-  const imageSharpObject = sharp(`${sourceDir}/${imagePath}`)
-  const resizedImageSharpObject = imageSharpObject.resize({ width, height })
+  try {
+    const imageSharpObject = sharp(`${sourceDir}/${imagePath}`)
+    const resizedImageSharpObject = imageSharpObject.resize({ width, height })
 
-  const outputInfo = await resizedImageSharpObject.toFile(
-    `${destinationDir}/${imageFileName}-${width}-${height}.${imageFileExtension}`
-  )
-  console.log(outputInfo)
+    const outputInfo = await resizedImageSharpObject.toFile(
+      `${destinationDir}/${imageFileName}-${width}-${height}.${imageFileExtension}`
+    )
+
+    isResizingCompleted = true
+    console.log(outputInfo)
+    // return { isImaisResizingCompletedgeResized: true }
+  } catch (error) {
+    console.log(error)
+    isResizingCompleted = false
+    // return { isImageResized: false }
+  }
+
+  return { isResizingCompleted }
 }
