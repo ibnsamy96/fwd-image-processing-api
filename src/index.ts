@@ -1,23 +1,20 @@
 import express, { Application, Request, Response } from 'express'
-// import morgan from 'morgan'
+import path from 'path'
 import * as dotenv from 'dotenv'
 
-import { ImageQueryParams } from './types/image-query-params.interface'
 import { createFolderIfNotExist, isThisFileExist } from './handle-fs'
 import getResponseStatus from './handle-response'
 import resizeImage from './resize-image'
+
+import { ImageQueryParams } from './types/image-query-params.interface'
 import ResponseStatus from './types/response.interface'
-// import {  } from './handle-fs'
 
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
 // create an instance server
 const app: Application = express()
-// HTTP request logger middleware
-// app.use(morgan('short'))
 
-// add routing for / path
 app.get('/', (req: Request, res: Response) => {
   res.json({
     message: 'Hello World 🌍'
@@ -45,7 +42,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
 
   const isImageExist = await isThisFileExist(
     `${imageName}.jpg`,
-    __dirname + '/' + imagesDirectories.main
+    path.join(__dirname, imagesDirectories.main)
   )
   if (!isImageExist) {
     // if there is no image, tell the user
@@ -68,7 +65,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   await createFolderIfNotExist('thumbnails')
   const isImageResized = await isThisFileExist(
     `${imageName}-${width}-${height}.jpg`,
-    __dirname + '/' + imagesDirectories.resized
+    path.join(__dirname, imagesDirectories.resized)
   )
 
   if (!isImageResized) {

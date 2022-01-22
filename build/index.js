@@ -59,19 +59,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-// import morgan from 'morgan'
+var path_1 = __importDefault(require("path"));
 var dotenv = __importStar(require("dotenv"));
 var handle_fs_1 = require("./handle-fs");
 var handle_response_1 = __importDefault(require("./handle-response"));
 var resize_image_1 = __importDefault(require("./resize-image"));
-// import {  } from './handle-fs'
 dotenv.config();
 var PORT = process.env.PORT || 3000;
 // create an instance server
 var app = (0, express_1.default)();
-// HTTP request logger middleware
-// app.use(morgan('short'))
-// add routing for / path
 app.get('/', function (req, res) {
     res.json({
         message: 'Hello World 🌍'
@@ -96,7 +92,7 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
                     });
                     return [2 /*return*/];
                 }
-                return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, ".jpg"), __dirname + '/' + imagesDirectories.main)];
+                return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, ".jpg"), path_1.default.join(__dirname, imagesDirectories.main))];
             case 1:
                 isImageExist = _b.sent();
                 if (!isImageExist) {
@@ -116,7 +112,7 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
                 return [4 /*yield*/, (0, handle_fs_1.createFolderIfNotExist)('thumbnails')];
             case 2:
                 _b.sent();
-                return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, "-").concat(width, "-").concat(height, ".jpg"), __dirname + '/' + imagesDirectories.resized)];
+                return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, "-").concat(width, "-").concat(height, ".jpg"), path_1.default.join(__dirname, imagesDirectories.resized))];
             case 3:
                 isImageResized = _b.sent();
                 if (!!isImageResized) return [3 /*break*/, 5];
