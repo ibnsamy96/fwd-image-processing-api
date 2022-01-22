@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var sharp_1 = __importDefault(require("sharp"));
+var path_1 = __importDefault(require("path"));
 var resizeImage = function (imagePath, width, height, sourceDir, destinationDir) { return __awaiter(void 0, void 0, void 0, function () {
     var isResizingCompleted, _a, imageFileName, imageFileExtension, imageSharpObject, resizedImageSharpObject, absoluteImagePath, outputInfo, error_1;
     return __generator(this, function (_b) {
@@ -50,10 +51,9 @@ var resizeImage = function (imagePath, width, height, sourceDir, destinationDir)
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                imageSharpObject = (0, sharp_1.default)("".concat(__dirname, "\\").concat(sourceDir, "\\").concat(imagePath));
+                imageSharpObject = (0, sharp_1.default)(path_1.default.join(__dirname, sourceDir, imagePath));
                 resizedImageSharpObject = imageSharpObject.resize({ width: width, height: height });
-                console.log('getting into the output info');
-                absoluteImagePath = "".concat(__dirname, "\\").concat(destinationDir, "\\").concat(imageFileName, "-").concat(width, "-").concat(height, ".").concat(imageFileExtension);
+                absoluteImagePath = path_1.default.join(__dirname, destinationDir, "".concat(imageFileName, "-").concat(width, "-").concat(height, ".").concat(imageFileExtension));
                 return [4 /*yield*/, resizedImageSharpObject.toFile(absoluteImagePath)];
             case 2:
                 outputInfo = _b.sent();

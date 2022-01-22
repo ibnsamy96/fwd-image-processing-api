@@ -1,4 +1,5 @@
 import sharp from 'sharp'
+import path from 'path'
 
 const resizeImage = async (
   imagePath: string,
@@ -13,11 +14,15 @@ const resizeImage = async (
   // console.log(imagePath)
 
   try {
-    const imageSharpObject = sharp(`${__dirname}\\${sourceDir}\\${imagePath}`)
+    const imageSharpObject = sharp(path.join(__dirname, sourceDir, imagePath))
     const resizedImageSharpObject = imageSharpObject.resize({ width, height })
 
-    console.log('getting into the output info')
-    const absoluteImagePath = `${__dirname}\\${destinationDir}\\${imageFileName}-${width}-${height}.${imageFileExtension}`
+    // console.log('getting into the output info')
+    const absoluteImagePath = path.join(
+      __dirname,
+      destinationDir,
+      `${imageFileName}-${width}-${height}.${imageFileExtension}`
+    )
     // console.log(absoluteImagePath)
 
     const outputInfo = await resizedImageSharpObject.toFile(absoluteImagePath)
