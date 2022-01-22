@@ -15,7 +15,7 @@ describe("Test endpoint '/resize-image'", () => {
   const endpoint = '/resize-image'
 
   it('test ok', async () => {
-    const queriesLine = 'imageName=image1&width=100&height=500'
+    const queriesLine = 'imageName=image1&width=200&height=500'
     const response = await request.get(`${endpoint}?${queriesLine}`)
     expect(response.status).toBe(200)
   })
