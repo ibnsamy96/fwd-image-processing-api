@@ -22,6 +22,10 @@ module.exports = {
     semi: ['error', 'never'],
     'no-console': 'off',
     'prettier/prettier': 2,
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.spec.ts', '**/*.spec.tsx'] }
+    ],
     'no-use-before-define': ['error', { functions: true, classes: true }],
     'no-var': 'off',
     'no-unused-vars': 'off',
