@@ -1,6 +1,5 @@
 # Folders
 node_modules/
-build/
 
 # Files
 **/resized-images/*.jpg
