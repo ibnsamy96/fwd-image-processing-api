@@ -42,7 +42,7 @@ describe('Test file existence.', function () {
     var currentDirectory = './';
     var files = {
         exist: '.env',
-        notExist: 'check-file-existence.ts'
+        notExist: 'not-exist.env'
     };
     it('test file existence', function () { return __awaiter(void 0, void 0, void 0, function () {
         var result;

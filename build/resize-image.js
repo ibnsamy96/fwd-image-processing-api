@@ -35,6 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -51,9 +60,9 @@ var resizeImage = function (imagePath, width, height, sourceDir, destinationDir)
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                imageSharpObject = (0, sharp_1.default)(path_1.default.join(__dirname, sourceDir, imagePath));
+                imageSharpObject = (0, sharp_1.default)(path_1.default.join.apply(path_1.default, __spreadArray(__spreadArray([__dirname], sourceDir, false), [imagePath], false)));
                 resizedImageSharpObject = imageSharpObject.resize({ width: width, height: height });
-                absoluteImagePath = path_1.default.join(__dirname, destinationDir, "".concat(imageFileName, "-").concat(width, "-").concat(height, ".").concat(imageFileExtension));
+                absoluteImagePath = path_1.default.join.apply(path_1.default, __spreadArray(__spreadArray([__dirname], destinationDir, false), ["".concat(imageFileName, "-").concat(width, "-").concat(height, ".").concat(imageFileExtension)], false));
                 return [4 /*yield*/, resizedImageSharpObject.toFile(absoluteImagePath)];
             case 2:
                 outputInfo = _b.sent();

@@ -12,8 +12,8 @@ const isThisFolderExist = async (absoluteDirPath: string): Promise<boolean> => {
   return isExist
 }
 
-export const createFolderIfNotExist = async (dirPath: string): Promise<void> => {
-  const absoluteDirPath = path.resolve(__dirname, dirPath)
+export const createFolderIfNotExist = async (...dirPath: string[]): Promise<void> => {
+  const absoluteDirPath = path.resolve(__dirname, ...dirPath)
   // console.log(absoluteDirPath)
 
   if (await isThisFolderExist(absoluteDirPath)) return
@@ -26,3 +26,5 @@ export const createFolderIfNotExist = async (dirPath: string): Promise<void> => 
     }
   })
 }
+
+// createFolderIfNotExist('..', 'medo')

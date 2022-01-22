@@ -5,7 +5,7 @@ describe('Test file existence.', () => {
   const currentDirectory = './'
   const files = {
     exist: '.env',
-    notExist: 'check-file-existence.ts'
+    notExist: 'not-exist.env'
   }
 
   it('test file existence', async () => {

@@ -35,6 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -62,27 +71,34 @@ var isThisFolderExist = function (absoluteDirPath) { return __awaiter(void 0, vo
         return [2 /*return*/, isExist];
     });
 }); };
-var createFolderIfNotExist = function (dirPath) { return __awaiter(void 0, void 0, void 0, function () {
-    var absoluteDirPath;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                absoluteDirPath = path_1.default.resolve(__dirname, dirPath);
-                return [4 /*yield*/, isThisFolderExist(absoluteDirPath)];
-            case 1:
-                // console.log(absoluteDirPath)
-                if (_a.sent())
+var createFolderIfNotExist = function () {
+    var dirPath = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        dirPath[_i] = arguments[_i];
+    }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var absoluteDirPath;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    absoluteDirPath = path_1.default.resolve.apply(path_1.default, __spreadArray([__dirname], dirPath, false));
+                    return [4 /*yield*/, isThisFolderExist(absoluteDirPath)];
+                case 1:
+                    // console.log(absoluteDirPath)
+                    if (_a.sent())
+                        return [2 /*return*/];
+                    fs_1.default.mkdir(absoluteDirPath, function (e) {
+                        if (e) {
+                            console.error(e);
+                        }
+                        else {
+                            console.log('Thumbnails folder creation succeeded.');
+                        }
+                    });
                     return [2 /*return*/];
-                fs_1.default.mkdir(absoluteDirPath, function (e) {
-                    if (e) {
-                        console.error(e);
-                    }
-                    else {
-                        console.log('Thumbnails folder creation succeeded.');
-                    }
-                });
-                return [2 /*return*/];
-        }
+            }
+        });
     });
-}); };
+};
 exports.createFolderIfNotExist = createFolderIfNotExist;
+// createFolderIfNotExist('..', 'medo')

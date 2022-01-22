@@ -54,6 +54,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -79,8 +88,8 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
         switch (_b.label) {
             case 0:
                 imagesDirectories = {
-                    resized: 'thumbnails',
-                    main: 'images'
+                    resized: ['..', 'public', 'thumbnails'],
+                    main: ['..', 'public', 'images']
                 };
                 imageName = req.query.filename;
                 _a = req.query, width = _a.width, height = _a.height;
@@ -92,7 +101,7 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
                     });
                     return [2 /*return*/];
                 }
-                return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, ".jpg"), path_1.default.join(__dirname, imagesDirectories.main))];
+                return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, ".jpg"), path_1.default.join.apply(path_1.default, __spreadArray([__dirname], imagesDirectories.main, false)))];
             case 1:
                 isImageExist = _b.sent();
                 if (!isImageExist) {
@@ -109,10 +118,10 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
                         .send({ error: responseStatus_3.message, 'received-width': width, 'received-height': height });
                     return [2 /*return*/];
                 }
-                return [4 /*yield*/, (0, handle_fs_1.createFolderIfNotExist)('thumbnails')];
+                return [4 /*yield*/, handle_fs_1.createFolderIfNotExist.apply(void 0, imagesDirectories.resized)];
             case 2:
                 _b.sent();
-                return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, "-").concat(width, "-").concat(height, ".jpg"), path_1.default.join(__dirname, imagesDirectories.resized))];
+                return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, "-").concat(width, "-").concat(height, ".jpg"), path_1.default.join.apply(path_1.default, __spreadArray([__dirname], imagesDirectories.resized, false)))];
             case 3:
                 isImageResized = _b.sent();
                 if (!!isImageResized) return [3 /*break*/, 5];
@@ -129,7 +138,7 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
                 responseStatus = (0, handle_response_1.default)('OK');
                 res
                     .status(responseStatus.code)
-                    .sendFile("".concat(__dirname, "/thumbnails/").concat(imageName, "-").concat(width, "-").concat(height, ".jpg"));
+                    .sendFile(path_1.default.join.apply(path_1.default, __spreadArray(__spreadArray([__dirname], imagesDirectories.resized, false), ["".concat(imageName, "-").concat(width, "-").concat(height, ".jpg")], false)));
                 return [2 /*return*/];
         }
     });

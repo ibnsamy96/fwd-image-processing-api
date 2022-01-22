@@ -23,8 +23,8 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/resize-image', async (req: Request, res: Response) => {
   const imagesDirectories = {
-    resized: 'thumbnails',
-    main: 'images'
+    resized: ['..', 'public', 'thumbnails'],
+    main: ['..', 'public', 'images']
   }
 
   const { filename: imageName } = req.query as unknown as ImageQueryParams
@@ -42,7 +42,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
 
   const isImageExist = await isThisFileExist(
     `${imageName}.jpg`,
-    path.join(__dirname, imagesDirectories.main)
+    path.join(__dirname, ...imagesDirectories.main)
   )
   if (!isImageExist) {
     // if there is no image, tell the user
@@ -62,10 +62,10 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     return
   }
 
-  await createFolderIfNotExist('thumbnails')
+  await createFolderIfNotExist(...imagesDirectories.resized)
   const isImageResized = await isThisFileExist(
     `${imageName}-${width}-${height}.jpg`,
-    path.join(__dirname, imagesDirectories.resized)
+    path.join(__dirname, ...imagesDirectories.resized)
   )
 
   if (!isImageResized) {
@@ -87,7 +87,9 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   const responseStatus: ResponseStatus = getResponseStatus('OK')
   res
     .status(responseStatus.code)
-    .sendFile(`${__dirname}/thumbnails/${imageName}-${width}-${height}.jpg`)
+    .sendFile(
+      path.join(__dirname, ...imagesDirectories.resized, `${imageName}-${width}-${height}.jpg`)
+    )
 })
 
 // start express server
