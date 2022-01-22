@@ -68,9 +68,9 @@ var createFolderIfNotExist = function (dirPath) { return __awaiter(void 0, void 
         switch (_a.label) {
             case 0:
                 absoluteDirPath = path_1.default.resolve(__dirname, dirPath);
-                console.log(absoluteDirPath);
                 return [4 /*yield*/, isThisFolderExist(absoluteDirPath)];
             case 1:
+                // console.log(absoluteDirPath)
                 if (_a.sent())
                     return [2 /*return*/];
                 fs_1.default.mkdir(absoluteDirPath, function (e) {
@@ -78,7 +78,7 @@ var createFolderIfNotExist = function (dirPath) { return __awaiter(void 0, void 
                         console.error(e);
                     }
                     else {
-                        console.log('Success');
+                        console.log('Thumbnails folder creation succeeded.');
                     }
                 });
                 return [2 /*return*/];

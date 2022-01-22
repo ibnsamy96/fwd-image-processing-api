@@ -14,7 +14,7 @@ const isThisFolderExist = async (absoluteDirPath: string): Promise<boolean> => {
 
 export const createFolderIfNotExist = async (dirPath: string): Promise<void> => {
   const absoluteDirPath = path.resolve(__dirname, dirPath)
-  console.log(absoluteDirPath)
+  // console.log(absoluteDirPath)
 
   if (await isThisFolderExist(absoluteDirPath)) return
 
@@ -22,7 +22,7 @@ export const createFolderIfNotExist = async (dirPath: string): Promise<void> => 
     if (e) {
       console.error(e)
     } else {
-      console.log('Success')
+      console.log('Thumbnails folder creation succeeded.')
     }
   })
 }
