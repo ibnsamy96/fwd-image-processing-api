@@ -1,5 +1,5 @@
 export interface ImageQueryParams {
-  imageName: string
+  filename: string
   width: string
   height: string
 }

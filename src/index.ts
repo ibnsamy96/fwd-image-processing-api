@@ -30,7 +30,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     main: 'images'
   }
 
-  const { imageName } = req.query as unknown as ImageQueryParams
+  const { filename: imageName } = req.query as unknown as ImageQueryParams
   const { width, height } = req.query as unknown as ImageQueryParams
 
   if (!imageName) {
