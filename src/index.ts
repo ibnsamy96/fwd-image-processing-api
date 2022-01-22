@@ -26,7 +26,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/resize-image', async (req: Request, res: Response) => {
   const imagesDirectories = {
-    resized: 'resized-images',
+    resized: 'thumbnails',
     main: 'images'
   }
 
@@ -65,7 +65,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     return
   }
 
-  await createFolderIfNotExist('resized-images')
+  await createFolderIfNotExist('thumbnails')
   const isImageResized = await isThisFileExist(
     `${imageName}-${width}-${height}.jpg`,
     __dirname + '/' + imagesDirectories.resized
@@ -90,7 +90,7 @@ app.get('/resize-image', async (req: Request, res: Response) => {
   const responseStatus: ResponseStatus = getResponseStatus('OK')
   res
     .status(responseStatus.code)
-    .sendFile(`${__dirname}/resized-images/${imageName}-${width}-${height}.jpg`)
+    .sendFile(`${__dirname}/thumbnails/${imageName}-${width}-${height}.jpg`)
 })
 
 // start express server

@@ -83,10 +83,10 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
         switch (_b.label) {
             case 0:
                 imagesDirectories = {
-                    resized: 'resized-images',
+                    resized: 'thumbnails',
                     main: 'images'
                 };
-                imageName = req.query.imageName;
+                imageName = req.query.filename;
                 _a = req.query, width = _a.width, height = _a.height;
                 if (!imageName) {
                     responseStatus_1 = (0, handle_response_1.default)('BAD_REQUEST');
@@ -113,7 +113,7 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
                         .send({ error: responseStatus_3.message, 'received-width': width, 'received-height': height });
                     return [2 /*return*/];
                 }
-                return [4 /*yield*/, (0, handle_fs_1.createFolderIfNotExist)('resized-images')];
+                return [4 /*yield*/, (0, handle_fs_1.createFolderIfNotExist)('thumbnails')];
             case 2:
                 _b.sent();
                 return [4 /*yield*/, (0, handle_fs_1.isThisFileExist)("".concat(imageName, "-").concat(width, "-").concat(height, ".jpg"), __dirname + '/' + imagesDirectories.resized)];
@@ -133,7 +133,7 @@ app.get('/resize-image', function (req, res) { return __awaiter(void 0, void 0, 
                 responseStatus = (0, handle_response_1.default)('OK');
                 res
                     .status(responseStatus.code)
-                    .sendFile("".concat(__dirname, "/resized-images/").concat(imageName, "-").concat(width, "-").concat(height, ".jpg"));
+                    .sendFile("".concat(__dirname, "/thumbnails/").concat(imageName, "-").concat(width, "-").concat(height, ".jpg"));
                 return [2 /*return*/];
         }
     });

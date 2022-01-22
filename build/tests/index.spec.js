@@ -64,7 +64,7 @@ describe("Test endpoint '/resize-image'", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    queriesLine = 'imageName=image1&width=200&height=500';
+                    queriesLine = 'filename=image1&width=200&height=500';
                     return [4 /*yield*/, request.get("".concat(endpoint, "?").concat(queriesLine))];
                 case 1:
                     response = _a.sent();
@@ -78,7 +78,7 @@ describe("Test endpoint '/resize-image'", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    queriesLine = 'imageName=image1&width=100px&height=500px';
+                    queriesLine = 'filename=image1&width=100px&height=500px';
                     return [4 /*yield*/, request.get("".concat(endpoint, "?").concat(queriesLine))];
                 case 1:
                     response = _a.sent();
@@ -92,7 +92,7 @@ describe("Test endpoint '/resize-image'", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    queriesLine = 'imageName=image1j&width=100&height=500';
+                    queriesLine = 'filename=image1j&width=100&height=500';
                     return [4 /*yield*/, request.get("".concat(endpoint, "?").concat(queriesLine))];
                 case 1:
                     response = _a.sent();
