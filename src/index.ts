@@ -3,7 +3,7 @@ import express, { Application, Request, Response } from 'express'
 import * as dotenv from 'dotenv'
 
 import { ImageQueryParams } from './types/image-query-params.interface'
-import { isThisFileExist } from './handle-fs'
+import { createFolderIfNotExist, isThisFileExist } from './handle-fs'
 import getResponseStatus from './handle-response'
 import resizeImage from './resize-image'
 import ResponseStatus from './types/response.interface'
@@ -26,8 +26,8 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/resize-image', async (req: Request, res: Response) => {
   const imagesDirectories = {
-    resized: './src/resized-images',
-    main: './src/images'
+    resized: 'resized-images',
+    main: 'images'
   }
 
   const { imageName } = req.query as unknown as ImageQueryParams
@@ -43,11 +43,16 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     return
   }
 
-  const isImageExist = await isThisFileExist(`${imageName}.jpg`, imagesDirectories.main)
+  const isImageExist = await isThisFileExist(
+    `${imageName}.jpg`,
+    __dirname + '/' + imagesDirectories.main
+  )
   if (!isImageExist) {
     // if there is no image, tell the user
     const responseStatus: ResponseStatus = getResponseStatus('NOT_FOUND')
-    res.status(responseStatus.code).send({ error: responseStatus.message, 'image-name': imageName })
+    res
+      .status(responseStatus.code)
+      .send({ error: responseStatus.message, 'received-imageName': imageName })
     return
   }
 
@@ -60,9 +65,10 @@ app.get('/resize-image', async (req: Request, res: Response) => {
     return
   }
 
+  await createFolderIfNotExist('resized-images')
   const isImageResized = await isThisFileExist(
     `${imageName}-${width}-${height}.jpg`,
-    imagesDirectories.resized
+    __dirname + '/' + imagesDirectories.resized
   )
 
   if (!isImageResized) {
