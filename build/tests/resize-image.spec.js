@@ -57,7 +57,7 @@ describe('Test resizing images', function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, resize_image_1.default)('image2.jpg', 200, 400, 'images', 'thumbnails')];
+                case 0: return [4 /*yield*/, (0, resize_image_1.default)('not-exist-image.jpg', 200, 400, 'images', 'thumbnails')];
                 case 1:
                     result = _a.sent();
                     expect(result).toBe(false);

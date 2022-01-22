@@ -8,7 +8,7 @@ describe('Test resizing images', () => {
   })
 
   it('image file not exist', async () => {
-    const result = await resizeImage('image2.jpg', 200, 400, 'images', 'thumbnails')
+    const result = await resizeImage('not-exist-image.jpg', 200, 400, 'images', 'thumbnails')
     expect(result).toBe(false)
   })
 

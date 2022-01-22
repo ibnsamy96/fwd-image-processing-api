@@ -1,5 +1,4 @@
-import sharp, { Sharp } from 'sharp'
-import { createFolderIfNotExist } from './handle-fs'
+import sharp from 'sharp'
 
 const resizeImage = async (
   imagePath: string,
