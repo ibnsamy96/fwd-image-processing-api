@@ -1,4 +1,4 @@
-import { resizeImage } from '../resize-image'
+import resizeImage from '../resize-image'
 
 describe('Test resizing images', () => {
   it('image file exist', async () => {
